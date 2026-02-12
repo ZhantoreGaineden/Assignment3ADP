@@ -43,7 +43,7 @@ func (s *AdminService) performDailyUpdate() {
 		if diff := newPriceKZT - car.PriceKZT; diff > 100 || diff < -100 {
 			err := s.Repo.UpdatePrice(car.ID, newPriceKZT)
 			if err != nil {
-				log.Printf("[Worker Error] Failed to update Car %d: %v", car.ID, err)
+				log.Printf("[Worker Error] Failed to update CarID %d: %v", car.ID, err)
 			} else {
 				updatesCount++
 			}

@@ -2,25 +2,28 @@ package service
 
 import (
 	"Assignment3ADP/internal/domain"
-	"Assignment3ADP/internal/repository"
 )
 
 type ClientService struct {
-	Repo repository.PostgresRepo
+	Repo domain.Repository
 }
 
-func NewClientService(repo repository.PostgresRepo) *ClientService {
+func NewClientService(repo domain.Repository) *ClientService {
 	return &ClientService{Repo: repo}
 }
 
-// GetCatalog returns only cars that customers are allowed to buy
+// GetCatalog returns only cars that customers are allowed to buy.
 func (s *ClientService) GetCatalog() ([]domain.Car, error) {
 	return s.Repo.GetAvailableCars()
 }
 
-// BookTestDrive handles the reservation safely
-func (s *ClientService) BookTestDrive(carID int64, userID int64) error {
+// GetCarDetails fetches a specific car by its UUID.
+func (s *ClientService) GetCarDetails(id string) (*domain.Car, error) {
+	return s.Repo.GetCarByID(id)
+}
 
+// BookTestDrive handles the reservation logic.
+func (s *ClientService) BookTestDrive(carID string, userID string) error {
 	car, err := s.Repo.GetCarByID(carID)
 	if err != nil {
 		return err
@@ -30,6 +33,5 @@ func (s *ClientService) BookTestDrive(carID int64, userID int64) error {
 		return domain.ErrCarNotAvailable
 	}
 
-	// 3. Perform Transaction
 	return s.Repo.BookCar(carID, userID)
 }

@@ -2,20 +2,19 @@ package service
 
 import (
 	"Assignment3ADP/internal/domain"
-	"Assignment3ADP/internal/repository"
 	"errors"
 )
 
 type AdminService struct {
-	Repo repository.PostgresRepo
+	Repo domain.Repository
 }
 
-func NewAdminService(repo repository.PostgresRepo) *AdminService {
+func NewAdminService(repo domain.Repository) *AdminService {
 	return &AdminService{Repo: repo}
 }
 
-// CreateCar Only Admins can add new inventory
-func (s *AdminService) CreateCar(vin, model string, priceUSD float64) error {
+// CreateCar now accepts imageURL.
+func (s *AdminService) CreateCar(vin, model, imageURL string, priceUSD float64) error {
 	if priceUSD <= 0 {
 		return errors.New("price must be positive")
 	}
@@ -25,17 +24,17 @@ func (s *AdminService) CreateCar(vin, model string, priceUSD float64) error {
 		Model:    model,
 		PriceUSD: priceUSD,
 		Status:   "transit",
+		ImageURL: imageURL, // Set the URL
 	}
 
 	return s.Repo.CreateCar(newCar)
 }
 
-// UpdatePrice Only Admins can change prices
-func (s *AdminService) UpdatePrice(id int64, newPriceKZT float64) error {
+// UpdatePrice updates car price by id
+func (s *AdminService) UpdatePrice(id string, newPriceKZT float64) error {
 	return s.Repo.UpdatePrice(id, newPriceKZT)
 }
 
-// GetAllInventory Admins see EVERYTHING (Sold, Reserved, In-Transit)
 func (s *AdminService) GetAllInventory() ([]domain.Car, error) {
 	return s.Repo.GetAllCars()
 }

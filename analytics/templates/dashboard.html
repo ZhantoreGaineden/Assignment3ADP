@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AutoHub Analytics Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; }
+        .grid { display: flex; gap: 12px; flex-wrap: wrap; }
+        .card { border: 1px solid #ddd; border-radius: 12px; padding: 14px; min-width: 200px; }
+        .label { opacity: .7; font-size: 12px; margin-bottom: 6px; }
+        .value { font-size: 22px; font-weight: 700; }
+        table { border-collapse: collapse; margin-top: 16px; width: 520px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f6f6f6; }
+        .muted { opacity: .7; font-size: 12px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<h1>AutoHub Analytics</h1>
+
+<div class="grid">
+    <div class="card">
+        <div class="label">Sold cars</div>
+        <div class="value">{{.SoldCarsCount}}</div>
+    </div>
+    <div class="card">
+        <div class="label">Sold total amount</div>
+        <div class="value">{{printf "%.2f" .SoldTotalAmount}}</div>
+    </div>
+    <div class="card">
+        <div class="label">Available cars</div>
+        <div class="value">{{.AvailableCarsCount}}</div>
+    </div>
+    <div class="card">
+        <div class="label">In-transit cars</div>
+        <div class="value">{{.InTransitCarsCount}}</div>
+    </div>
+    <div class="card">
+        <div class="label">Leads</div>
+        <div class="value">{{.LeadsCount}}</div>
+    </div>
+</div>
+
+<h2>Sales by month (last 12)</h2>
+<table>
+    <tr>
+        <th>Month</th>
+        <th>Count</th>
+        <th>Amount</th>
+    </tr>
+    {{range .SalesByMonth}}
+    <tr>
+        <td>{{.Month}}</td>
+        <td>{{.Count}}</td>
+        <td>{{printf "%.2f" .Amount}}</td>
+    </tr>
+    {{end}}
+</table>
+
+<div class="muted">Generated at: {{.GeneratedAt}}</div>
+</body>
+</html>

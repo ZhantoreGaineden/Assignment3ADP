@@ -52,4 +52,6 @@ type Repository interface {
 	GetCarsInTransit() ([]Car, error)
 	UpdatePrice(id string, priceKZT float64) error
 	BookCar(carID string, userID string) error
+	DeleteCar(id string) error
+	UpdateStatus(id string, status string) error
 }

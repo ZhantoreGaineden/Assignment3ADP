@@ -3,6 +3,7 @@ package middleware
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -10,10 +11,14 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtKey = []byte(os.Getenv("JWT_SECRET"))
-
 // AuthMiddleware intercepts requests to ensure the user is logged in via JWT Header.
 func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	secret := os.Getenv("JWT_SECRET")
+	if secret == "" {
+		log.Println("[WARNING] JWT_SECRET is empty in AuthMiddleware!")
+	}
+	jwtKey := []byte(secret)
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
@@ -41,6 +46,7 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		})
 
 		if err != nil || !token.Valid {
+			log.Printf("[DEBUG] JWT Validation failed: %v", err)
 			w.WriteHeader(http.StatusUnauthorized)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid or expired token"})
 			return

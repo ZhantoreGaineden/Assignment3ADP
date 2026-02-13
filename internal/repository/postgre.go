@@ -149,3 +149,15 @@ func (r *PostgresRepo) fetchCars(query string) ([]domain.Car, error) {
 	}
 	return cars, nil
 }
+
+// DeleteCar removes a vehicle from the system.
+func (r *PostgresRepo) DeleteCar(id string) error {
+	_, err := r.DB.Exec("DELETE FROM cars WHERE id = $1", id)
+	return err
+}
+
+// UpdateStatus changes the status of a vehicle.
+func (r *PostgresRepo) UpdateStatus(id string, status string) error {
+	_, err := r.DB.Exec("UPDATE cars SET status = $1 WHERE id = $2", status, id)
+	return err
+}

@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load("../.env"); err != nil {
 		log.Println("No .env file found, using system environment variables")
 	}
 
@@ -27,7 +27,7 @@ func main() {
 
 	// 2. Database Connection
 	dbHost := getEnv("DB_HOST", "localhost")
-	dbPort := getEnv("DB_PORT", "5432")
+	dbPort := getEnv("DB_PORT", "")
 	dbUser := getEnv("DB_USER", "postgres")
 	dbPass := getEnv("DB_PASS", "postgres")
 	dbName := getEnv("DB_NAME", "postgres")

@@ -35,7 +35,7 @@ type PublicCar struct {
 	ID       string
 	Make     string
 	Model    string
-	PriceUSD float64
+	PriceKZT float64
 	Status   string
 	ImageURL string
 }

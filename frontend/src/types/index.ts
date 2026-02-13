@@ -3,7 +3,7 @@ export interface Car {
   vin: string;
   make: string;
   model: string;
-  price_usd: number;
+  price_usd?: number;
   price_kzt?: number;
   status: 'available' | 'transit' | 'reserved' | 'sold';
   image_url: string;

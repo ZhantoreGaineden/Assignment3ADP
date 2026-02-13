@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
 import CarDetails from './pages/CarDetails';
 import Login from './pages/Login';
+import Catalog from './pages/Catalog';
 import Register from './pages/Register';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -20,6 +21,7 @@ function App() {
           <main style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/catalog" element={<Catalog />} />
               <Route path="/cars/:id" element={<CarDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />

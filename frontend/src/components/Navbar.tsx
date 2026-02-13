@@ -19,14 +19,15 @@ const Navbar: React.FC = () => {
             </Link>
 
             <div className="nav-links">
+                <Link to="/catalog" className="nav-link">Asset Portfolio</Link> {/* <-- Add this link */}
                 <Link to="/about" className="nav-link">Digital License</Link>
                 <Link to="/contact" className="nav-link">Establish Connection</Link>
             </div>
 
-            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+            <div style={{display: 'flex', gap: '2.5rem', alignItems: 'center'}}>
                 {isAuthenticated ? (
                     <>
-                        <Link to="/admin" className="nav-link" style={{ fontWeight: 600, color: 'var(--primary)' }}>
+                        <Link to="/admin" className="nav-link" style={{fontWeight: 600, color: 'var(--primary)'}}>
                             System OS
                         </Link>
                         <button onClick={handleLogout} className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.75rem', background: 'var(--primary)', borderColor: 'var(--primary)' }}>

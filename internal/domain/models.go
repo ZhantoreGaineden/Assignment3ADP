@@ -32,12 +32,12 @@ type Car struct {
 }
 
 type PublicCar struct {
-	ID       string
-	Make     string
-	Model    string
-	PriceKZT float64
-	Status   string
-	ImageURL string
+	ID       string  `json:"id"`
+	Make     string  `json:"make"`
+	Model    string  `json:"model"`
+	PriceKZT float64 `json:"price_kzt"`
+	Status   string  `json:"status"`
+	ImageURL string  `json:"image_url"`
 }
 
 type Repository interface {

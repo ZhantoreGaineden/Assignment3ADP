@@ -10,7 +10,7 @@ CREATE TABLE users (
                        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
                        username VARCHAR(100) UNIQUE NOT NULL,
                        password_hash VARCHAR(255) NOT NULL,
-                       role VARCHAR(50) NOT NULL CHECK (role IN ('admin', 'manager')),
+                       role VARCHAR(50) NOT NULL CHECK (role IN ('admin', 'manager', 'user')),
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

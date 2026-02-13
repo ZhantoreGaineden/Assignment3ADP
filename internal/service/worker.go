@@ -2,6 +2,7 @@ package service
 
 import (
 	"log"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -12,6 +13,8 @@ func (s *AdminService) StartDailyCurrencyWorker() {
 	defer ticker.Stop()
 
 	log.Println("[Worker] Daily Currency Updater started. Waiting for next cycle...")
+	log.Println("[Worker] Running initial startup update...")
+	s.performDailyUpdate()
 
 	for {
 		<-ticker.C
@@ -30,7 +33,7 @@ func (s *AdminService) performDailyUpdate() {
 	}
 	log.Printf("[Worker] Current Exchange Rate: 1 USD = %.2f KZT", rate)
 
-	cars, err := s.Repo.GetCarsInTransit()
+	cars, err := s.Repo.GetAvailableCars()
 	if err != nil {
 		log.Printf("[Worker Error] DB fetch failed: %v", err)
 		return
@@ -38,9 +41,11 @@ func (s *AdminService) performDailyUpdate() {
 
 	updatesCount := 0
 	for _, car := range cars {
-		newPriceKZT := car.PriceUSD * rate
+		rawPriceKZT := car.PriceUSD * rate
 
-		if diff := newPriceKZT - car.PriceKZT; diff > 100 || diff < -100 {
+		newPriceKZT := math.Round(rawPriceKZT/100000.0) * 100000.0
+
+		if newPriceKZT != car.PriceKZT {
 			err := s.Repo.UpdatePrice(car.ID, newPriceKZT)
 			if err != nil {
 				log.Printf("[Worker Error] Failed to update CarID %s: %v", car.ID, err)

@@ -20,7 +20,7 @@ func (h *Handler) GetCatalog(w http.ResponseWriter, r *http.Request) {
 			ID:       c.ID,
 			Make:     c.Make,
 			Model:    c.Model,
-			PriceUSD: c.PriceUSD,
+			PriceKZT: c.PriceKZT,
 			Status:   c.Status,
 			ImageURL: c.ImageURL,
 		})

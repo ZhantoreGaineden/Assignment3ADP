@@ -51,9 +51,10 @@ CREATE INDEX idx_leads_phone ON leads(customer_phone);
 
 -- 6. Insert Mock Data (With Images)
 INSERT INTO users (username, password_hash, role)
-VALUES ('admin', '$2a$12$YourHashedPasswordHere', 'admin');
+VALUES ('admin', '$2a$12$R9h/lSu6yokEiZfTrPhGueu7u.JOf.9v69/v8b6rPd.YyOnz9gE2.', 'admin');
 
 INSERT INTO cars (vin, make, model, price_usd, status, location, image_url)
 VALUES
-    ('VIN111', 'Toyota', 'Camry', 25000.00, 'available', 'Almaty', 'https://upload.wikimedia.org/wikipedia/commons/a/ac/2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg'),
-    ('VIN222', 'Zeekr', '001', 38000.00, 'transit', 'Khorgos', 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Zeekr_001_2024051001.jpg');
+('CAR-095', 'Lightning', 'McQueen', 950000, 'available', 'Radiator Springs', '/uploads/mcqueen.png'),
+('CAR-002', 'Sally', 'Carrera', 125000, 'available', 'Radiator Springs', '/uploads/sally.png'),
+('CAR-003', 'Tow', 'Mater', 15000, 'transit', 'Radiator Springs', '/uploads/mater.png');

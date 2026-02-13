@@ -38,3 +38,11 @@ func (s *AdminService) UpdatePrice(id string, newPriceKZT float64) error {
 func (s *AdminService) GetAllInventory() ([]domain.Car, error) {
 	return s.Repo.GetAllCars()
 }
+
+func (s *AdminService) DeleteCar(id string) error {
+	return s.Repo.DeleteCar(id)
+}
+
+func (s *AdminService) UpdateStatus(id string, status string) error {
+	return s.Repo.UpdateStatus(id, status)
+}
